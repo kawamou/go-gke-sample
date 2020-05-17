@@ -31,15 +31,15 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - mountPath: /etc/nginx # /etc/nginxにvolumesのnginx-confをmountする
+        - mountPath: /etc/nginx
           readOnly: true
           name: nginx-conf
       volumes:
-      - name: nginx-conf # volumeMountsで/etc/nginxにmountするやつ
+      - name: nginx-conf
         configMap: 
-          name: nginx-conf # ConfigMapのnginx-confを/etc/nginx以下に配置する
+          name: nginx-conf
           items:
-            - key: nginx.conf # nginx-confのkey
-              path: nginx.conf # nginx.confというファイル名
+            - key: nginx.conf
+              path: nginx.conf
         
 

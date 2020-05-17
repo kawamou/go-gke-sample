@@ -9,25 +9,24 @@ spec:
       protocol: "TCP"
       port: 8080
       targetPort: 8080
-  selector: # 「app: go」のコンテナにリクエストを振り向ける
+  selector:
     app: go
 ---
-apiVersion: apps/v1 # オブジェクトのスキーマのバージョン
-kind: Deployment # オブジェクトの種類
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: go-deployment # オブジェクトの名前
-# [2]詳細情報
-spec: # オブジェクトの詳細
-  replicas: 2 # ReplicaSetの個数。最低維持するPod数
+  name: go-deployment
+spec:
+  replicas: 2
   selector:
     matchLabels:
         app: go
-  template: # Podのテンプレート。これをReplicaSetは維持する
+  template:
     metadata:
-      labels: # ラベリングして管理する。key-valueで定義。role(key): app(value)
+      labels:
         app: go
     spec:
-      containers: # Podに属するコンテナのリスト
+      containers:
       - name: go-container
         image: gcr.io/lightning-asakatsu/k8s-go-app:latest
         imagePullPolicy: Always
