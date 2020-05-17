@@ -127,6 +127,7 @@ spec:
 ## メモ
 - GKEのIngressではヘルスチェックのためにデフォルトでGET / へリクエストを送信し、ステータスコード200が返ってくることを期待している。当初 / へのリクエストに対するレスポンスをgo側で考慮してなかったので、200を返せずingressが立ち上がらなかった
 ## 参考
-- https://qiita.com/petitviolet/items/ee4b1bdba2670a1d6a12
-- https://qiita.com/keitakn/items/241ccd2bc95c2c879735
-- https://flxy.jp/article/10107
+- [GKEにGoのアプリケーションをデプロイする](https://qiita.com/keitakn/items/241ccd2bc95c2c879735)
+- [Kubernetes実践入門。基本的なyamlとコマンドから学ぶサービス運用効率化術](https://flxy.jp/article/10107)
+- [Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what? (Kubernetes NodePort と LoadBalancer と Ingress のどれを使うべきか) を訳した](http://chidakiyo.hatenablog.com/entry/2018/09/10/Kubernetes_NodePort_vs_LoadBalancer_vs_Ingress%3F_When_should_I_use_what%3F_%28Kubernetes_NodePort_%E3%81%A8_LoadBalancer_%E3%81%A8_Ingress_%E3%81%AE%E3%81%A9%E3%82%8C%E3%82%92%E4%BD%BF%E3%81%86)
+- [kubernetesで動かすソフトウェアの設定をConfigMapで記述する](https://qiita.com/petitviolet/items/ee4b1bdba2670a1d6a12)
