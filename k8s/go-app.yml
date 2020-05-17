@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: "http-port"
+      protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  selector: # 「app: go」のコンテナにリクエストを振り向ける
+    app: go
+---
+apiVersion: apps/v1 # オブジェクトのスキーマのバージョン
+kind: Deployment # オブジェクトの種類
+metadata:
+  name: go-deployment # オブジェクトの名前
+# [2]詳細情報
+spec: # オブジェクトの詳細
+  replicas: 2 # ReplicaSetの個数。最低維持するPod数
+  selector:
+    matchLabels:
+        app: go
+  template: # Podのテンプレート。これをReplicaSetは維持する
+    metadata:
+      labels: # ラベリングして管理する。key-valueで定義。role(key): app(value)
+        app: go
+    spec:
+      containers: # Podに属するコンテナのリスト
+      - name: go-container
+        image: gcr.io/lightning-asakatsu/k8s-go-app:latest
+        imagePullPolicy: Always
