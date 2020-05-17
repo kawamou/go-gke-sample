@@ -32,6 +32,7 @@
 ## 本k8sの構成
 - ingressでhttp受け取ってnginxのservice(NodePort)で受け取る。nginxはproxy_passでgoのservice(ClusterIP)を指定。goがレスポンス返す
 - 全体イメージ(メモ)
+![K8S 001](https://user-images.githubusercontent.com/18514782/82153055-27508880-98a0-11ea-96aa-69af656362a5.png)
 ## 使い方
 ### セットアップ
 ```
@@ -42,7 +43,6 @@
 ```
 ### dockerイメージ作り
 - GCP上でContainer Registry APIを有効化
-- 下記コマンドを実行↓
 ```
 # Dockerfileあるディレクトリで実行
 ❯ docker build -t [IMAGE_NAME]:[TAG_NAME] .
