@@ -37,58 +37,58 @@
 ![K8S 001](https://user-images.githubusercontent.com/18514782/82153055-27508880-98a0-11ea-96aa-69af656362a5.png)
 ## 使い方
 ### セットアップ
-```
+```xxx.sh
 # kubectl入ってるか確認
-❯ kubectl version
+kubectl version
 # 無ければ
-❯ gcloud components install kubectl
+gcloud components install kubectl
 ```
 ### dockerイメージ作り
 - GCP上でContainer Registry APIを有効化
-```
+```xxx.sh
 # Dockerfileあるディレクトリで実行
-❯ docker build -t [IMAGE_NAME]:[TAG_NAME] .
+docker build -t [IMAGE_NAME]:[TAG_NAME] .
 # 確認
-❯ docker run [IMAGE_NAME]:[TAG_NAME]
+docker run [IMAGE_NAME]:[TAG_NAME]
 # GCP Container Registry使う準備
-# docker push/pull時にGCR指定されてると自動でgcloudで認証するための準備↓
-❯ gcloud auth configure-docker
+docker push/pull時にGCR指定されてると自動でgcloudで認証するための準備↓
+gcloud auth configure-docker
 # タグ付け
-❯ docker tag [IMAGE_NAME]:[TAG_NAME] gcr.io/[PROJECT_NAME]/[IMAGE_NAME]:[TAG_NAME]
+docker tag [IMAGE_NAME]:[TAG_NAME] gcr.io/[PROJECT_NAME]/[IMAGE_NAME]:[TAG_NAME]
 # PUSH
-❯ docker push gcr.io/[PROJECT_NAME]/[IMAGE_NAME]:[TAG_NAME]
+docker push gcr.io/[PROJECT_NAME]/[IMAGE_NAME]:[TAG_NAME]
 # ここまでやればGCR上でイメージ確認できる
 ```
 ### k8s周り
 - GCP上でKubernetes Engine APIを有効化
-```
+```xxx.sh
 # gcloudコマンドの度に--region指定しても良いんだが面倒なので設定しておく
-❯ gcloud config set compute/zone asia-northeast1-a
+gcloud config set compute/zone asia-northeast1-a
 # クラスタ作る。これがひとつの計算リソースになる
-❯ gcloud container clusters create [CLUSTER_NAME] \
+gcloud container clusters create [CLUSTER_NAME] \
   --machine-type=n1-standard-1 \
   --num-nodes=2
 # 下記コマンドによりkubectlから接続可能に
-❯ gcloud container clusters get-credentials [CLUSTER_NAME] --zone asia-northeast1-a --project [PROJECT_NAME]
+gcloud container clusters get-credentials [CLUSTER_NAME] --zone asia-northeast1-a --project [PROJECT_NAME]
 # 確認
-❯ kubectl config get-contexts
+kubectl config get-contexts
 # デプロイ
-❯ kubectl apply -f [MANIFEST_YAML_FILE_NAME]
+kubectl apply -f [MANIFEST_YAML_FILE_NAME]
 # k8sディレクトリ直下の複数ファイルを一気に読み込むことも可能
-❯ kubectl apply -f k8s/
+kubectl apply -f k8s/
 # クラスタ後片付け
-❯ gcloud container clusters delete [CLUSTER_NAME]
+gcloud container clusters delete [CLUSTER_NAME]
 # デバッグ周りのコマンド
 # Pod名確認
-❯ kubectl get pods
+kubectl get pods
 # Podに入る
-❯ kubectl exec -it [POD_NAME] /bin/sh
+kubectl exec -it [POD_NAME] /bin/sh
 # Pod詳細確認
 kubectl describe pod [POD_NAME]
 ```
 ## YAML
 ### 基本的な書き方
-```
+```xxx.yaml
 apiVersion: v1 # どのバージョンのKubernetesAPIを使いオブジェクトを作成するか宣言
 kind: Service # 作成するオブジェクトの種類
 metadata:
